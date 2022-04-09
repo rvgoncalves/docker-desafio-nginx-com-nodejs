@@ -10,6 +10,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: nodedb
     volumes:
+      - ./db/:/docker-entrypoint-initdb.d/
       - ./mysql:/var/lib/mysql
     networks:
       - db_net
@@ -38,6 +39,14 @@ services:
       - http_net
     ports:
       - 8080:80
+    
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 80:8080
+    networks:
+      - db_net
 
 networks:
   db_net:
